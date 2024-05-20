@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/start.css' %}">
+    <title>food website</title>
+    <style>
+        .top-right-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: black; /* Adjust color as needed */
+    text-decoration: none;
+    font-size: 16px;
+    background-color: #05D1DF;
+    border-radius:3px;
+    padding:7px;
+}
+    .top-right-link:hover{
+        transform: translatex(1px);
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="circle">
+
+        </div>
+        <header>
+        <a href="#" class="logo"><img src="{% static 'img/logoimg/eat - Copy.png' %}"></a>
+         <a href="{% url 'hostlogin' %}" class="top-right-link">Restaurant login</a>
+        </header>
+        <div class="content">
+            <div class="textBox">
+                <h2>Order your Favourite Food<br>in <span>Eat Food</span></h2>
+                <p>Explore our food and Restaurant and order your food and wait just 5 min only,fastest food delivery website
+                    and not delivery charge .Eat your favourite food in Eat Food.Fastest delivery app in kerala.</p><br>
+                <a href="{% url 'userlogin' %}">Order Now!</a>
+
+            </div>
+            <div class="imgBox">
+                <img src="{% static 'img/startimg/main.png' %}" class="salad">
+            </div>
+        </div>
+
+        <ul class="sci">
+            <li><a href="#"><img src="{% static 'img/startimg/facebook.png' %}" ></a></li>
+            <li><a href="#"><img src="{% static 'img/startimg/instagram.png' %}" ></a></li>
+            <li><a href="#"><img src="{% static 'img/startimg/twitter.png' %}" ></a></li>
+        </ul>
+    </section>
+</body>
+</html>

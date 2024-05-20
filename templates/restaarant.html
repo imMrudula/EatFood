@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/restaurant.css' %}">
+    <title></title>
+    <style>
+        .quantity {
+    margin-top: 10px;
+}
+
+.quantity input {
+    width: 30px;
+    text-align: center;
+}
+.quantity button {
+padding: 5px 10px;
+background-color: #23D4DF;
+color: white;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+}
+
+.quantity button:hover {
+background-color: #1ba6b6;
+}
+.icon-heart.wishlist-active::before {
+    color: red;
+}
+    </style>
+</head>
+<body >
+  <nav class="navbar fixed-top  navbar-expand-md navbar-light" style='background-color: #05D1DF;'>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img/logoimg/eaticon1.png' %}" alt="" width="30" height="30">
+          <span style="font-weight:bold; font-family:'popins',sans-serif">EatFood</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end align-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#about" data-bs-toggle="modal">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'wishlist' %}"><i class='bx bx-heart'></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}"><i class='bx bxs-cart'></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'load_content' 'Account Details' %}"><i class='bx bx-user-circle'></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+   <!--About Modal -->
+   <div class="modal fade" id="about" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="text-center titles">About Eat Food </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <body class="bg-light text-dark">
+
+                <div class="container py-5">
+
+
+                    <p class="lead text-center">Eat Food is your go-to platform for a delightful dining experience from the comfort of your home. We connect you with a variety of local restaurants, making food ordering and delivery a seamless and enjoyable process.</p>
+
+                    <p class="text-center mission-statement"><em>Our mission is to bring the joy of diverse cuisines to your doorstep, ensuring you have access to your favorite meals whenever you crave them.</em></p>
+
+                    <div class="row mt-5">
+                        <div class="col-lg-6">
+                            <h2 class=" titles">How It Works</h2>
+                            <p>Explore our user-friendly platform to discover a wide range of restaurants in your area. Simply browse the menus, customize your order, and proceed to checkout. Our efficient delivery team ensures your food is delivered hot and fresh to your doorstep.</p>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <h2 class="titles">Our Commitment</h2>
+                            <p>At Your Food Delivery, we are committed to providing a convenient and reliable food ordering and delivery service. We prioritize quality, timely deliveries, and customer satisfaction. Your dining experience matters, and we strive to make it exceptional every time.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h2 class="titles ">Why Choose Us?</h2>
+                        <ul>
+                            <li>Wide Variety: Access a diverse range of cuisines and dishes from local restaurants.</li>
+                            <li>Convenience: Order with ease from the comfort of your home or office.</li>
+                            <li>Quick Delivery: Our dedicated team ensures prompt and efficient food delivery.</li>
+                            <li>Quality Assurance: We collaborate with reputable restaurants to deliver high-quality meals.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-5">
+                        <h2 class=" titles">Contact Us</h2>
+                        <p>If you have any inquiries, feedback, or if you're a restaurant interested in partnering with us, feel free to contact our team at eatfood@gmail.com or (+91)7012450927. Your satisfaction is our priority.</p>
+                    </div>
+                </div>
+            </body>
+          </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn " data-bs-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!----food items list-->
+  {% for x in rest_data %}
+    <div class="container d-flex flex-column align-items-center rest-wrap">
+
+        <div class="h3 rest-title">{{x.Restaurant_name}} </div>
+        <div class="d-block rest-cuis"><small>{{x.Discription}}</small></div>
+    </div>
+
+    <div class="address-box">
+        <div class="adress">
+            <img class="cycle" src="{% static 'img/restimg/bx-cycling 1.png' %}">
+            <span class="dist"> | Free delivery </span>
+        </div>
+    </div>
+    <div class="search-container ">
+        <form method="POST">
+                {% csrf_token %}
+        <div class="input-group mb-3 mt-3">
+            <input type="text" class="form-control " placeholder="Search our menu" name="menusrch" value="{{menu_srch}}">
+            <div class="input-group-append">
+                <button class="input-group-text">
+                    <img src="{% static 'img/restimg/search-alt.png' %}" alt="search" class="search-icon">
+                </button>
+            </div>
+        </div>
+            </form>
+    </div>
+    <section id="fud-item">
+                <div class="container mt-5">
+                    {%  include 'alert.html' %}
+                  <div class="row">
+                      {% for y in items %}
+                    <div class="col-md-3 mt-5">
+                      <div class="card" style="width: 15rem; height: 25rem;">
+                        <img src="{{y.Image.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                                <a href="addtoWishlist/{{y.Item_id}}"  class="wishlist" data-bs-toggle="popover" data-bs-content="Item added to wishlist!" data-bs-placement="top">
+                                    {% if y.is_in_wishlist %}
+                                    <i class='bx bxs-heart icon-heart'style="color:pink;" ></i>
+                                    {% else %}
+                                     <i class='bx bx-heart icon-heart'></i>
+                                    {% endif %}
+                                </a>
+                                <p class="card-title">{{y.Item_name}}</p>
+                            {% if y.avg_rating %}
+                          <div class="rate-wrap">
+                             <span><img class="icon-star" src="{% static 'img/homeimg/Star 18.png' %}"></span>
+                             <span class="rate">{{y.avg_rating}}</span>
+                          </div>
+                            {% endif %}
+                          <span class="price">₹{{y.Price}}</span><a href="#" onclick="showitemdetail('{{y.Image.url}}','{{y.Item_id}}','{{y.Item_name}}','{{y.Price}}','{{y.Description}}')" class="btn ml-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View Item</a>
+                        </div>
+                      </div>
+                    </div>
+                      {% endfor %}
+                    <!--item view modal-->
+        <div class="modal fade" id="staticBackdrop"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+               <div class="card-deck mb-3" style="width: 50rem ;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="" class="img-fluid rounded-start" style="width: 14rem; height: 14rem;">
+                    </div>
+                    <div class="col-md-8">
+                     <div class="card-body">
+                         <form method="POST" action="{% url 'addtocart' %}">
+                    {% csrf_token %}
+                         <input type="hidden" id="itemid" name="item_id">
+                       <h5 class="card-title" id="itemName"></h5>
+                       <span class="card-text">₹<span id="priceValue"></span></span><br><br>
+                       <p class="card-text" id="itemDescription"></p>
+                        <div class="quantity">
+                             <a href="#" class="btn" onclick="changeQuantity('decrease')">-</a>
+                             <input type="text" name="qty" id="quantity" value="1" readonly>
+                             <a href="#" class="btn" onclick="changeQuantity('increase')">+</a>
+                        </div><br>
+                         <input type="hidden" id="totalPrice" name="itemprice">
+                             <button type="submit" class="btn ">Add to Cart</button>
+                         </form>
+                      </div>
+                     </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+                </div>
+
+
+         </section>
+    <div class=" container-md mt-5 rest-license-wrap">
+      <div class="rest-license-license">
+      <img src="{% static 'img/restimg/fssai.png' %}" alt="FSSAI" class="rest-license-img">
+      <p class="rest-license-no">License No. {{x.License}}</p>
+      </div>
+    </div>
+    <div class=" container-md rest-address-wrap">
+       <p class="rest-address-name">{{x.Restaurant_name}}</p>
+       <div class="rest-address-location">
+        <div class="rest-address-icon"><i class='bx bx-current-location'></i></div>
+        <p>{{x.Address}},{{x.City}},{{x.District.city_name}},{{x.pincode}}</p>
+       </div>
+    </div>
+  {% endfor %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script>
+
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
+        function showitemdetail(itemimage,itemid,itemname,itemprice,itemdescription){
+          var modal = document.getElementById("staticBackdrop");
+          var modalImage = modal.querySelector('.modal-body img');
+          var modalTitle = modal.querySelector('#itemName');
+          var modalId = modal.querySelector('#itemid');
+          var modalDescription = modal.querySelector('#itemDescription');
+          var modalPrice = modal.querySelector('#priceValue');
+          var modalQuantity = modal.querySelector('#quantity');
+
+          modalImage.src= itemimage;
+          modalId.value= itemid;
+          modalTitle.textContent= itemname;
+          modalDescription.textContent= itemdescription;
+          modalPrice.textContent=  itemprice;
+          modalQuantity.value = 0;
+        }
+
+        function changeQuantity(change) {
+           var quantityInput = document.getElementById("quantity");
+           var quantity = parseInt(quantityInput.value);
+           var itemPrice = parseFloat(document.getElementById("priceValue").textContent);
+
+           if (change === 'increase') {
+            quantity++;
+            } else if (change === 'decrease' && quantity > 1) {
+            quantity--;
+            }
+
+            quantityInput.value = quantity;
+
+             var totalPriceElement = document.getElementById("totalPrice");
+             totalPriceElement.value = (itemPrice * quantity);
+        }
+
+    </script>
+  </body>
+</html>
+

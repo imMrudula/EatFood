@@ -1,0 +1,168 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+body {
+    background-color: hsl(0, 0%, 96%);
+    }
+.navb-search{
+    margin-left: 40px;
+}
+.nav-link{
+    font-family: 'poppins';
+    font-weight: 400;
+}
+.navb-form-btn{
+    color: #000000;
+    border-color: #000000;
+    font-family: 'poppins';
+}
+.navb-form-btn:hover{
+    background-color: #000000;
+    color: #05D1DF;
+}
+.rest-wrap{
+    margin-top: 130px;
+}
+.rest-title{
+    font-weight: 600;
+}
+.rate-wrap{
+    border: none;
+    display: flex;
+    align-items: center;
+    background-color: rgb(113, 211, 113);
+    padding: 2px;
+    border-radius: 5px;
+    width: 45px;
+}
+.icon-star{
+    width: 20px;
+    height: 20px;
+   }
+.rate{
+    font-size: 15px;
+    font-weight: bold;
+}
+.address-box{
+    border-bottom: 2px dashed #ccc;
+}
+.adress{
+    display: flex;
+    align-items: center;
+    height: 15px;
+    padding: 10px;
+    margin-bottom: 6px;
+}
+.cycle{
+    width: 18px;
+    top: 1px;
+}
+.dist{
+    font-size: 13px;
+    font-family: 'poppins';
+}
+
+
+.search-container {
+    max-width: 600px;
+    margin: auto;
+   }
+
+.search-input {
+    border-radius: 5px;
+    opacity: 0.5;
+    color: white;
+}
+.input-group-text{
+    height: 38px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.search-icon:hover {
+    opacity: 0.7;
+}
+.accordion-button{
+    font-family: 'poppins';
+}
+.card:hover{
+    box-shadow: 0 5px 45px rgb(63, 61, 61);
+}
+.icon-heart{
+    color: #000000;
+    margin-left: 190px;
+    border: black;
+}
+.icon-heart.clicked{
+    color: #05D1DF;
+}
+
+.price{
+    font-size: 14px;
+    margin-right: 65px;
+}
+.icon-star {
+
+    color: #fee900;
+}
+
+.btn{
+    background-color: #05D1DF;
+}
+.btn:hover{
+    opacity: 0.7;
+}
+.rest-license-wrap{
+    padding: 10px 16px 16px;
+    background-color: #05D1DF;
+    font-size: .93rem;
+    color:black;
+}
+.rest-license-license{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+.rest-license-img{
+    height: 46px;
+    width: 60px;
+    margin-right: 16px;
+}
+img{
+    border: none;
+}
+.rest-license-no{
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+.rest-address-wrap{
+    background-color: #05D1DF;
+    font-size: 1rem;
+    color: black;
+    padding: 0 16px 120px;
+}
+.rest-address-name{
+    font-weight: 600;
+    padding-top: 16px;
+    text-transform: capitalize;
+}
+.rest-address-location{
+    display: flex;
+    font-size: .86rem;
+    margin-top: 12px;
+    color: black;
+}
+
+.titles{
+    color:  #05D1DF;
+}
+
+

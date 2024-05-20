@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/userprofile.css' %}">
+<title>Dynamic Content Example</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    h1{
+    margin-top:7rem!important;
+    }
+    .titles{
+    color:  #05D1DF;
+    }
+    .btn{
+    background-color: #05D1DF ;
+    }
+    .logout{
+      background-color:black;
+      border-radius:1rem;
+      }
+    .logout:hover{
+      transform:translatey(1px);
+      }
+    .checked{
+      color:yellow;
+      }
+      .ratebtn{
+      background:black;
+      color: white;}
+
+  </style>
+</head>
+<body>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token}}">
+ <nav class="navbar fixed-top navbar-expand-md navbar-light" style='background-color: #05D1DF ;'>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img/logoimg/eaticon1.png' %}" alt="" width="30" height="30">
+          <span style="font-weight:bold; font-family:'popins',sans-serif">EatFood</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end align-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#about" data-bs-toggle="modal">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'wishlist' %}"><i class='bx bx-heart'></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class='bx bxs-cart'></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link logout" href="{% url 'logout' %}" style="color:white;" >Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   <div class="modal fade" id="about" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="text-center titles">About Eat Food </h1>
+
+          </div>
+          <div class="modal-body">
+              <body class="bg-light text-dark">
+
+                  <div class="container py-5">
+
+
+                      <p class="lead text-center">Your Food Delivery is your go-to platform for a delightful dining experience from the comfort of your home. We connect you with a variety of local restaurants, making food ordering and delivery a seamless and enjoyable process.</p>
+
+                      <p class="text-center mission-statement"><em>Our mission is to bring the joy of diverse cuisines to your doorstep, ensuring you have access to your favorite meals whenever you crave them.</em></p>
+
+                      <div class="row mt-5">
+                          <div class="col-lg-6">
+                              <h2 class=" titles">How It Works</h2>
+                              <p>Explore our user-friendly platform to discover a wide range of restaurants in your area. Simply browse the menus, customize your order, and proceed to checkout. Our efficient delivery team ensures your food is delivered hot and fresh to your doorstep.</p>
+                          </div>
+
+                          <div class="col-lg-6">
+                              <h2 class="titles">Our Commitment</h2>
+                              <p>At Your Food Delivery, we are committed to providing a convenient and reliable food ordering and delivery service. We prioritize quality, timely deliveries, and customer satisfaction. Your dining experience matters, and we strive to make it exceptional every time.</p>
+                          </div>
+                      </div>
+
+                      <div class="mt-5">
+                          <h2 class="titles ">Why Choose Us?</h2>
+                          <ul>
+                              <li>Wide Variety: Access a diverse range of cuisines and dishes from local restaurants.</li>
+                              <li>Convenience: Order with ease from the comfort of your home or office.</li>
+                              <li>Quick Delivery: Our dedicated team ensures prompt and efficient food delivery.</li>
+                              <li>Quality Assurance: We collaborate with reputable restaurants to deliver high-quality meals.</li>
+                          </ul>
+                      </div>
+
+                      <div class="mt-5">
+                          <h2 class=" titles">Contact Us</h2>
+                          <p>If you have any inquiries, feedback, or if you're a restaurant interested in partnering with us, feel free to contact our team at eatfood@gmail.com or (+91)7012450927. Your satisfaction is our priority.</p>
+                      </div>
+                  </div>
+              </body>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn " data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<h1>Welcome Back!! <span style="color:#05D1DF;">{{ user_details.User_name }}</span></h1>
+<div>{%  include 'alert.html' %}</div>
+<div id="container" class="contain mt-5">
+  <div class="button-container">
+    <span class="load-button" onclick="loadContent('Account Details')">Account Details</span>
+    <span class="load-button" onclick="loadContent('Change Password')">Change Password</span>
+    <span class="load-button" onclick="loadContent('Add Address')">Add Address</span>
+    <span class="load-button" onclick="loadContent('Manage Address')">Manage Address</span>
+    <span class="load-button" onclick="loadContent('My Orders')">My Orders</span>
+
+  </div>
+  <div id="dynamic-content">
+    <img src="{% static 'img/logoimg/user.jpg' %}" style="width:18rem; height:15rem;margin-left:10rem">
+  </div>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // JavaScript functions
+    function loadContent(buttonText) {
+        var dynamicContentDiv = document.getElementById("dynamic-content");
+
+        // Clear existing content
+        dynamicContentDiv.innerHTML = '';
+
+        // Check which button was clicked and load the corresponding content
+        if (buttonText === 'Account Details') {
+            // Render the account details directly
+            dynamicContentDiv.innerHTML = `
+                <h2>Account Details</h2>
+                <p><strong>Username:</strong> {{ user_details.User_name }}</p>
+                <p><strong>Phone Number:</strong> {{ user_details.User_mob }}</p>
+                <p><strong>Email:</strong> {{ user_details.User_email }}</p>
+            `;
+        } else if (buttonText === 'Change Password') {
+            // Render the change password form
+            dynamicContentDiv.innerHTML = `
+                <h2>Change Password</h2>
+                <form id="change-password-form" method="POST" action="{% url 'change_password' %}">
+                    {% csrf_token %}
+                    <label for='current-password'>Current Password:</label>
+                    <input type='password' id='current-password' name='current_password'><br>
+                    <label for='new-password'>New Password:</label>
+                    <input type='password' id='new-password' name='new_password'><br>
+                    <label for='confirm-new-password'>Confirm New Password:</label>
+                    <input type='password' id='confirm-new-password' name='confirm_new_password'><br>
+                    <button type='submit'>Submit</button>
+                </form>
+            `;
+        } else if (buttonText === 'Add Address') {
+            // Render the add address form
+            dynamicContentDiv.innerHTML = `
+                <h2>Add Address</h2>
+                <form id="add-address-form" method="POST" action="{% url 'add_address' %}">
+                    {% csrf_token %}
+
+                    <label for='Address'>Address(Area & street):</label>
+                    <input type='text' id='Address' name='Address'><br>
+                    <label for='City'>District:</label>
+                    <input type='text' id='city' name='district'><br>
+                    <label for='state'>State:</label>
+                    <input type='text' id='state' name='state'><br>
+                    <label for='pincode'>Pincode:</label>
+                    <input type='text' id='pincode' name='pincode'><br>
+                    <input type='submit' value='Submit'>
+                </form>
+            `;
+        } else if (buttonText === 'Manage Address') {
+            // Create the required content for Manage Address
+            var content = "<h2>Manage Address</h2>";
+
+            // Loop through the addresses and generate a card for each address
+            {% for address in address_details %}
+            content += "<div class='card'>";
+            content += "<p><strong>Address:</strong> {{ address.Location }}</p>";
+            content += "<p><strong>District:</strong> {{ address.District }}</p>";
+            content += "<p><strong>State:</strong> {{ address.State }}</p>";
+            content += "<p><strong>Pincode:</strong> {{ address.Pincode }}</p>";
+            content += "<button class='delete-button' onclick='deleteaddress({{address.Address_id}})'>Delete</button>";
+
+            content += "</div>";
+            {% endfor %}
+
+            dynamicContentDiv.innerHTML = content;
+        } else if (buttonText === 'My Orders') {
+            // Create the required content for My Orders
+            var content = "<h2>My Orders</h2>";
+            {% for order in order_data %}
+            content += "<div class='card'>";
+            content += "<p><strong>Item:</strong>{{order.Item.Item_name}}</p>";
+            content += "<p><strong>Restaurant:</strong>{{order.Item.Host.Restaurant_name}}</p>";
+            content += "<hr>";
+            content += "<h5>Add Review</h5>";
+            content += "<div class='row'>";
+            content += "<div class='col-md-3'>";
+            content += "<span class='fa fa-star' onclick='setRating(1)'></span>";
+            content += "<span class='fa fa-star' onclick='setRating(2)'></span>";
+            content += "<span class='fa fa-star' onclick='setRating(3)'></span>";
+            content += "<span class='fa fa-star' onclick='setRating(4)'></span>";
+            content += "<span class='fa fa-star' onclick='setRating(5)'></span>";
+            content += "</div>";
+            content += "<div class='col-md-9'>";
+            content += "<form id='review_form' action='{% url 'add_rating' %}' method='POST'>";
+            content += "<input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token}}'>";
+            content += "<input type='hidden' id='rating_input' name='rating' value=''>";
+            content += "<input type='hidden' name='itemid' value='{{order.Item.Item_id}}'>";
+            content += "<button class='ratebtn' onclick='submitReviewForm()'>Submit</button>";
+            content += "</form>";
+            content += "</div>";
+            content += "</div>";
+            content += "</div>";
+            {% endfor %}
+            dynamicContentDiv.innerHTML = content;
+        }
+    }
+
+    // JavaScript function to delete an address
+function deleteaddress(addressId) {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Create a form element
+        const form = document.createElement('form');
+        form.setAttribute('method', 'POST');
+        form.setAttribute('action', '/delete_address/');
+
+        // Add CSRF token input field
+        const csrfInput = document.createElement('input');
+        csrfInput.setAttribute('type', 'hidden');
+        csrfInput.setAttribute('name', 'csrfmiddlewaretoken');
+        csrfInput.setAttribute('value', csrftoken);
+        form.appendChild(csrfInput);
+
+        // Add address ID input field
+        const addressIdInput = document.createElement('input');
+        addressIdInput.setAttribute('type', 'hidden');
+        addressIdInput.setAttribute('name', 'address_id');
+        addressIdInput.setAttribute('value', addressId);
+        form.appendChild(addressIdInput);
+
+        // Append the form to the body and submit it
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+
+    // Function to set the selected rating
+var selectedRating = 0;
+function setRating(rating) {
+    selectedRating = rating;
+
+    // Update the star icons' appearance based on the selected rating
+    var stars = document.querySelectorAll('.fa-star');
+    stars.forEach(function(star, index) {
+        if (index < selectedRating) {
+            star.classList.add('checked');
+        } else {
+            star.classList.remove('checked');
+        }
+    });
+}
+function submitReviewForm() {
+    // Set the selected rating value as the value of a hidden input field
+    document.getElementById('rating_input').value = selectedRating;
+
+    // Submit the form
+    document.getElementById('review_form').submit();
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

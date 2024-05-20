@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+</head>
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <img src="{% static 'img/logoimg/eaticon1.png' %}" alt="" style="width: 4rem;">
+                        </span>
+                        <span class="title">Eat Food</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'admin' %}">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="layers-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Category</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+            </div>
+            <!-- ================ Order Details List ================= -->
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Category</h2>
+                        <a href="{% url 'addcategory' %}" class="btn">Add Category</a>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Category Name</td>
+                                <td>Related Image</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for category in category %}
+                            <tr>
+                                <td>{{category.Category}}</td>
+                                <td><img src="{{ category.Image.url }}" alt="Related Image" style="width: 7rem; height:5rem;"></td>
+                                <td>
+                                    <form action="{% url 'delete_category' category.Category_id %}" method="POST" style="display: inline;">
+                                       {% csrf_token %}
+                                       <input type="hidden" name="category_id" value="{{ category.Category_id}}">
+                                       <input type="hidden" name="action" value="delete">
+                                       <button type="submit" style="color:red; cursor:pointer;">Delete</button>
+                                    </form>
+                                    <form action="{% url 'update_category' category.Category_id %}" method="GET" style="display: inline;">
+                                        <input type="hidden" name="category_id" value="{{ category.Category_id }}">
+                                        <button type="submit" style="color:green; cursor:pointer;">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!-- =========== Scripts =========  -->
+    <script src="{% static 'js/admin.js' %}"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Content Example</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+  margin-top: 5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+
+  #container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+    margin: 20px auto;
+  }
+
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+  }
+
+  .load-button {
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #000000;
+    border: 2px solid #23D4DF;
+    border-radius: 5px;
+    background-color: transparent;
+    margin-bottom: 10px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .load-button:hover {
+    background-color: #23D4DF;
+    color: #fff;
+  }
+
+
+  #dynamic-content {
+    padding: 20px;
+    min-height: 200px;
+    width: 60%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+
+  form {
+    margin-top: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  input[type="password"],
+  input[type="text"],
+  input[type="submit"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    width: calc(100% - 16px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  input[type="submit"] {
+    background-color: #23D4DF;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #555;
+  }
+
+
+  .card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .delete-button:hover {
+    background-color: darkred;
+  }
+  .navbar-custom {
+    background-color: #23D4DF;
+  }
+  .navbar-dark .navbar-brand {
+    margin-right: 100px;
+  }
+  .custom-margin-left {
+    margin-left: 0;
+  }
+  .text-center.bold {
+    font-weight: bolder;
+  }
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-button {
+  padding: 5px 10px;
+  background-color: #23D4DF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.quantity-button:hover {
+  background-color: #555;
+}
+
+#quantity {
+  width: 40px; /* Adjust the width as needed */
+  text-align: center;
+}
+/* CSS for the card image */
+.card img {
+  width: 50%;
+  height: auto;
+}
+
+/* CSS for the card title */
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+/* CSS for the card text */
+.card-text {
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* CSS for the delete button */
+.delete-button {
+  background-color: red;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+/* CSS for the dropdown (select) element */
+#category {
+  width: 100%; /* Set the width of the dropdown to 100% of its container */
+  padding: 10px; /* Add padding for better appearance */
+  border: 1px solid #ccc; /* Add border to the dropdown */
+  border-radius: 5px; /* Apply border radius for rounded corners */
+  background-color: #fff; /* Set background color */
+  color: #333; /* Set text color */
+}
+.logout{
+      background-color:black;
+      border-radius:1rem;
+      }
+    .logout:hover{
+      transform:translatey(1px);
+      }
+</style>
+</head>
+<body>
+
+
+<nav class="navbar fixed-top  navbar-expand-md navbar-light" style='background-color: #05D1DF;'>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{% static 'img/logoimg/eaticon1.png' %}" alt="" width="30" height="30">
+          <span style="font-weight:bold; font-family:'popins',sans-serif">EatFood</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+         <div class="collapse navbar-collapse justify-content-end align-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link logout" href="{% url 'hostlogout' %}" style="color:white;" >Log Out</a>
+          </li>
+        </ul>
+         </div>
+    </div>
+  </nav>
+<h1>Restaurant Details</h1>
+{%  include 'alert.html' %}
+<div id="container">
+    <div class="button-container">
+        <span class="load-button" onclick="loadContent('Account Details')">Account Details</span>
+        <span class="load-button" onclick="loadContent('Change Password')">Change Password</span>
+
+        <span class="load-button" onclick="loadContent('Add Event')">Add Event</span>
+        <span class="load-button" onclick="loadContent('Add Coupon')">Add Coupon</span>
+      </div>
+
+
+  <div id="dynamic-content"></div>
+</div>
+
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+ function loadContent(buttonText) {
+  var dynamicContentDiv = document.getElementById("dynamic-content");
+
+  // Clear existing content
+  dynamicContentDiv.innerHTML = '';
+
+  // Check which button was clicked and load the corresponding content
+  if (buttonText === 'Account Details') {
+        // Render the account details directly
+        dynamicContentDiv.innerHTML = `
+            <h2>Account Details</h2>
+            <p><strong>Restaurant Name:</strong> {{ host_details.Restaurant_name }}</p>
+            <p><strong>License:</strong> {{ host_details.License }}</p>
+            <p><strong>Email:</strong> {{ host_details.Email }}</p>
+            <p><strong>Address:</strong> {{ host_details.Address }}</p>
+            <p><strong>City:</strong> {{ host_details.City }}</p>
+            <p><strong>City:</strong> {{ host_details.District }}</p>
+            <p><strong>State:</strong> {{ host_details.District.state_id.state_name }}</p>
+            <p><strong>pincode:</strong> {{ host_details.pincode }}</p>
+            <p><strong>Phone:</strong> {{ host_details.Phone_no }}</p>
+        `;
+    } else if (buttonText === 'Change Password') {
+    // Render the change password form
+        dynamicContentDiv.innerHTML = `
+            <h2>Change Password</h2>
+            <form id="change-password-form" method="POST" action="{% url 'host_password' %}">
+                {% csrf_token %}
+                <label for='current-password'>Current Password:</label>
+                <input type='password' id='current-password' name='current_password'><br>
+                <label for='new-password'>New Password:</label>
+                <input type='password' id='new-password' name='new_password'><br>
+                <label for='confirm-new-password'>Confirm New Password:</label>
+                <input type='password' id='confirm-new-password' name='confirm_new_password'><br>
+                <button type='submit'>Submit</button>
+            </form>
+        `;
+
+        } if (buttonText === 'Manage Item') {
+      // Render items directly from Django template
+      {% for item in items %}
+        var card = `
+          <div class="card">
+            <img src="{{ item.image_url }}" alt="Item Image">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text">Description: {{ item.description }}</p>
+              <p class="card-text">Price: ${{ item.price }}</p>
+              <p class="card-text">Quantity: {{ item.quantity }}</p>
+              <p class="card-text">Start Time: {{ item.start_time }}</p>
+              <p class="card-text">End Time: {{ item.end_time }}</p>
+              <p class="card-text">Category: {{ item.category }}</p>
+              <button class="delete-button" onclick="deleteCard(this)">Delete</button>
+            </div>
+          </div>
+        `;
+        // Append each card to the dynamicContentDiv
+        dynamicContentDiv.innerHTML += card;
+      {% endfor %}
+
+  } else if (buttonText === 'Add Event') {
+    // Create the Add Event form
+    var content = `
+       <!-- Add Event Form -->
+        <form method="POST" action="{% url 'add_event' %}">
+            {% csrf_token %}
+            <label for="event_name">Event Name:</label>
+            <input type="text" id="event_name" name="event_name" required><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea><br>
+
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required><br>
+
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required><br>
+
+
+            <label for="coupon">Select Coupon:</label>
+            <select id="coupon" name="coupon">
+                {% for coupon in coupons %}
+                    <option value="{{ coupon.Coupon_id }}">{{ coupon.Coupon_code }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    `;
+
+    // Append content to the dynamicContentDiv
+    dynamicContentDiv.innerHTML = content;
+}
+
+  else if (buttonText === 'Add Coupon') {
+    // Create the Add coupon form
+    var content = `
+        <!-- HTML form for adding a coupon -->
+        <form class="add-coupon-form" method="POST" action="{% url 'add_coupon' %}">
+            {% csrf_token %}
+            <h2>Add Coupon</h2>
+
+
+
+            <label for="Coupon-code">Coupon Code:</label>
+            <input type="text" id="Coupon-code" name="Coupon-code" required><br>
+
+            <label for="discount-price">Discount Price:</label>
+            <input type="number" id="discount-price" name="discount_price"  required><br>
+
+            <label for="minimum_amnt">Minimum Amount:</label>
+            <input type="number" id="minimum_amnt" name="minimum_amnt"  required><br>
+
+
+
+            <input type="submit" value="Submit">
+        </form>
+    `;
+
+    // Append content to the dynamicContentDiv
+    dynamicContentDiv.innerHTML = content;
+  }
+
+}
+
+  </script>
+
+  </body>
+  </html>

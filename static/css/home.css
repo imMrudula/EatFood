@@ -1,0 +1,184 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+body {
+    background-color: hsl(0, 0%, 96%);
+
+    }
+.navb-search{
+    margin-left: 40px;
+}
+
+.nav-link{
+    font-family: 'poppins';
+    font-weight: 400;
+}
+.navb-form-btn{
+    color: #000000;
+    border-color: #000000;
+    font-family: 'poppins';
+}
+.navb-form-btn:hover{
+    background-color: #000000;
+    color: #2db1bb;
+}
+.titles{
+    color:  #05D1DF;
+}
+.btn{
+    background-color: #05D1DF ;
+}
+
+
+.carousel-item{
+margin-top: 80px;
+height: 300px;
+}
+.subtitles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+.subtitles h5 {
+    display: inline-block;
+    position: relative;
+}
+
+.subtitles h5::before,
+.subtitles h5::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(0, 0, 0);
+}
+
+.subtitles h5::before {
+    left: -110%;
+}
+
+.subtitles h5::after {
+    right: -110%;
+}
+
+
+.category{
+    display: grid;
+    overscroll-behavior-inline: contain;
+    grid-auto-flow: column;
+    grid-auto-columns: 15%;
+    overflow-x: auto;
+}
+.category::-webkit-scrollbar{
+    width: 0;
+}
+.snaps-inline{
+    scroll-snap-type: inline mandatory;
+}
+.snaps-inline > *{
+    scroll-snap-align: start;
+}
+
+.category-card{
+    height: 161px;
+    overflow: hidden;
+    border-radius: 2px;
+}
+.category-card:hover{
+    box-shadow: 0 0 5px rgb(63, 61, 61);
+}
+
+.category-title{
+    font-family: 'poppins';
+    color: #000000;
+    text-decoration-line: underline;
+}
+.features{
+    margin-top: 80px;
+}
+.featuretitle{
+    font-family: 'poppins';
+    font-size: 21px;
+    font-weight: 400;
+    margin-top: 10px;
+    color: #05D1DF;
+}
+.featuretxt{
+    font-family: 'poppins';
+    font-size: 18px;
+}
+.featurecol{
+    text-align: center;
+}
+.restaurant-wrap{
+    padding-left: 50px;
+    margin-top: 80px;
+}
+.restaurants-card{
+  height: 394px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.restaurants-card:hover{
+    box-shadow: 0 5px 5px rgb(63, 61, 61);
+}
+.restaurants-title{
+    font-weight: 600;
+    font-family: 'poppins';
+    font-size: 30px;
+}
+.restaurants-text{
+    font-family: 'poppins';
+    font-size: 16px;
+}
+.restaurants-offer-any{
+    font-size: 19px;
+    color: #05D1DF;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.card-link {
+    text-decoration: none; /* Remove underlines */
+    color: inherit; /* Inherit text color */
+}
+
+.card-link:hover {
+    color: inherit; /* Inherit text color on hover */
+}
+footer{
+    background-color: #05D1DF;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.social-icons .bx{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #000;
+    background: #ffffffbd;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.homelink{
+    color: #000;
+    text-decoration: none;
+}
+hr{
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #000000;
+    margin: 20px 0 auto;
+}
+.copyright{
+    text-align: center;
+}

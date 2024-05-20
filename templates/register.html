@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+
+<div class="container">
+      <div class="header">
+         <h2>Create Account</h2>
+     </div>
+       <form class="form" method="POST">
+           {% csrf_token %}
+       <div class="form-control">
+          <label>Name</label>
+          <input type="text" name="username" placeholder="Enter your name" id="username" value="{{name}}">
+          <i class='bx bxs-check-circle'></i>
+          <i class='bx bxs-alarm-exclamation'></i>
+          <small>Error message</small>
+       </div>
+       <div class="form-control">
+        <label>Mobile No.</label>
+        <input type="text" name="contact" placeholder="Enter your contact no." id="contact" value="{{contact}}">
+        <i class='bx bxs-check-circle'></i>
+        <i class='bx bxs-alarm-exclamation'></i>
+        <span style="color:red;">{{error_message}}</span>
+        <small>Error message</small>
+     </div>
+
+     <div class="form-control">
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password" id="password" name="password1" value="{{password1}}">
+        <i class='bx bxs-check-circle'></i>
+        <i class='bx bxs-alarm-exclamation'></i>
+        <small>Error message</small>
+     </div>
+     <div class="form-control">
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Enter password again" id="password2" name="password2" value="{{password2}}">
+        <i class='bx bxs-check-circle'></i>
+        <i class='bx bxs-alarm-exclamation'></i>
+        <small>Error message</small>
+     </div>
+     <button type="submit">Register</button>
+    </form>
+    <div class="signuplink">
+      <p>Already have an account? <a class="signuppath" href="{% url 'userlogin' %}">Signin</a></p>
+    </div>
+</div>
+<script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <img src="{% static 'img/logoimg/eaticon1.png' %}" alt="" style="width: 4rem;">
+                        </span>
+                        <span class="title">Eat Food</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'admin' %}">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'managecategory' %}">
+                        <span class="icon">
+                            <ion-icon name="layers-outline"></ion-icon>
+                        </span>
+                        <span class="title">Manage Category</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+            </div>
+
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{usercount}}</div>
+                        <div class="cardName">Users</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{hostcount}}</div>
+                        <div class="cardName">Restaurants</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="restaurant-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{reviewcount}}</div>
+                        <div class="cardName">Reviews</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{ordercount}}</div>
+                        <div class="cardName">Orders</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Registered Users</h2>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Mobile</td>
+                                <td>Email ID</td>
+                                <td>Status</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for user in user %}
+                            <tr>
+                                <td>{{user.User_name}}</td>
+                                <td>{{user.User_mob}}</td>
+                                <td>{{user.User_email}}</td>
+                                <td>{{user.User_status}}</td>
+                                <td>
+                                  <form method="post" action="{% url 'activate_user' user.User_id %}">
+                                      {% csrf_token %}
+                                      {% if user.User_status == 'Active' %}
+                                      <button type="submit" style="background:red; color:white; cursor:pointer;">Deactivate</button>
+                                      {% else %}
+                                      <button type="submit" style="background:green; color:white; cursor:pointer;">Activate</button>
+                                      {% endif %}
+                                  </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="details">
+            <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Registered Restaurants</h2>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Mobile</td>
+                                <td>Email ID</td>
+                                <td>License</td>
+                                <td>Status</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for host in host %}
+                            <tr>
+                                <td>{{host.Restaurant_name}}</td>
+                                <td>{{host.Phone_no}}</td>
+                                <td>{{host.Email}}</td>
+                                <td>{{host.License}}</td>
+                                <td>{{host.Host_status}}</td>
+                                <td>
+                                  <form method="post" action="{% url 'activate_host' host.Restaurant_id %}">
+                                      {% csrf_token %}
+                                      {% if host.Host_status == 'Active' %}
+                                      <button type="submit" style="background:red; color:white; cursor:pointer;">Deactivate</button>
+                                      {% else %}
+                                      <button type="submit" style="background:green; color:white; cursor:pointer;">Activate</button>
+                                      {% endif %}
+                                  </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="{% static 'js/admin.js' %}"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

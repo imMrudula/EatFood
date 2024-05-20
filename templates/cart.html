@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <title>Shopping Cart</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<style>
+    .navb-search{
+    margin-left: 40px;
+}
+.nav-link{
+    font-family: 'poppins';
+    font-weight: 400;
+}
+.navb-form-btn{
+    color: #000000;
+    border-color: #000000;
+    font-family: 'poppins';
+}
+.navb-form-btn:hover{
+    background-color: #000000;
+    color: #05D1DF;
+}
+.search-input {
+    border-radius: 5px;
+    opacity: 0.5;
+    color: white;
+}
+.titles{
+    color: #05D1DF;
+}
+.prodtitle{
+font-size:20px;
+}
+.subprice{
+font-size:18px;
+font-weight:bold;
+text-align:center;
+}
+.orderbtn{
+text-align:center;
+}
+.orderbtns{
+background-color:green;
+width:12rem;
+height:2rem;
+border-radius:5px;
+}
+.orderbtns:hover{
+transform:translatey(1px)
+}
+.coupon-box{
+display:flex;
+flex-direction:column;
+}
+.coupon{
+width:17rem;
+margin-left:7rem;
+}
+.couponbtn{
+background-color:black;
+color:white;
+width:4rem;
+padding:6px;
+border-radius:2px;
+}
+.couponbtn:hover{
+transform:translatex(3px)
+}
+  @media (min-width: 1025px) {
+  .h-custom {
+  height: 100vh !important;
+  }
+  }/* cart.css */
+
+/* Example responsive styling */
+@media (max-width: 768px) {
+  /* Adjust styles for screens smaller than 768px */
+}
+
+@media (max-width: 576px) {
+  /* Adjust styles for screens smaller than 576px */
+}
+
+</style>
+<body style="background-color: #eee;">
+    <nav class="navbar navbar-expand-md navbar-light" style='background-color: #05D1DF ;'>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'img/logoimg/eaticon1.png' %}" alt="" width="30" height="30">
+              <span style="font-weight:bold; font-family:'popins',sans-serif">EatFood</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end align-center" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#about" data-bs-toggle="modal">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'wishlist' %}"><i class='bx bx-heart'></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cart' %}"><i class='bx bxs-cart'></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'load_content' 'Account Details' %}"><i class='bx bx-user-circle'></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="modal fade" id="about" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="text-center titles">About Eat Food </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <body class="bg-light text-dark">
+
+                    <div class="container py-5">
+
+
+                        <p class="lead text-center">Your Food Delivery is your go-to platform for a delightful dining experience from the comfort of your home. We connect you with a variety of local restaurants, making food ordering and delivery a seamless and enjoyable process.</p>
+
+                        <p class="text-center mission-statement"><em>Our mission is to bring the joy of diverse cuisines to your doorstep, ensuring you have access to your favorite meals whenever you crave them.</em></p>
+
+                        <div class="row mt-5">
+                            <div class="col-lg-6">
+                                <h2 class=" titles">How It Works</h2>
+                                <p>Explore our user-friendly platform to discover a wide range of restaurants in your area. Simply browse the menus, customize your order, and proceed to checkout. Our efficient delivery team ensures your food is delivered hot and fresh to your doorstep.</p>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <h2 class="titles">Our Commitment</h2>
+                                <p>At Your Food Delivery, we are committed to providing a convenient and reliable food ordering and delivery service. We prioritize quality, timely deliveries, and customer satisfaction. Your dining experience matters, and we strive to make it exceptional every time.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h2 class="titles ">Why Choose Us?</h2>
+                            <ul>
+                                <li>Wide Variety: Access a diverse range of cuisines and dishes from local restaurants.</li>
+                                <li>Convenience: Order with ease from the comfort of your home or office.</li>
+                                <li>Quick Delivery: Our dedicated team ensures prompt and efficient food delivery.</li>
+                                <li>Quality Assurance: We collaborate with reputable restaurants to deliver high-quality meals.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-5">
+                            <h2 class=" titles">Contact Us</h2>
+                            <p>If you have any inquiries, feedback, or if you're a restaurant interested in partnering with us, feel free to contact our team at [email] or [phone number]. Your satisfaction is our priority.</p>
+                        </div>
+                    </div>
+                </body>
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn " data-bs-dismiss="modal">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+  <section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card">
+            <div class="card-body p-4">
+
+              <div class="row">
+
+                <div class="col-lg-6">
+                  <h5 class="mb-3"><a href="#!" class="text-body">Check Out</a></h5>
+                  <hr>
+                  <div class="row">
+                    <h5>Select Address</h5>
+                          <div class="row">
+                     {% for address in address %}
+                    <div class="col-md-1 mt-4" style="text-align: center;">
+                        <input type="radio" name="address" value="address1">
+                    </div>
+                    <div class="col-md-11 mt-4">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <input type="hidden" name="addresid" value="{{address.Address_id}}">
+                                        <p class="card-text">{{address.Location}}</p>
+                                        <p class="card-text">{{address.District}},{{address.State}}</p>
+                                        <p class="card-text">{{address.Pincode}}</p>
+                                        <p>{{address.User_id.User_mob}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                      {% endfor %}
+                          </div>
+
+                  </div>
+                  <div style="text-align: center;">
+                  <a href="load_content/'Account Details'" class="btn btn-warning">Add Address</a>
+                </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
+                    <div>
+                      <h5 class="mb-1">Cart Items</h5>
+                      <p class="mb-0">You have {{count}} items in your cart</p>
+                    </div>
+                  </div>
+
+                  <div class="coupon-box">
+                      <h6>Have Coupon?</h6>
+                      <form method="POST">
+                          {%  include 'alert.html' %}
+                          {% csrf_token %}
+                    <div class="input-group coupon mb-3">
+                        <input type="text" class="form-control"name="coupon" placeholder="coupon code"  aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Apply</button>
+                    </div>
+                          {% if applied_coupon %}
+                          <a href="{% url 'deletecoupon' %}" class="couponbtn" style="text-decoration:none;">{{applied_coupon}}</a>
+                          {% endif %}
+                      </form>
+                  </div>
+                  <hr>
+                   {% for item in cart %}
+                  <div class="card-deck mb-3">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                          <div>
+                            <img
+                              src="{{item.Item_id.Image.url}}"
+                              class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                          </div>
+                          <div class="ms-3">
+                            <h5>{{item.Item_id.Item_name}}</h5>
+                            <p class="small mb-0">{{item.Item_id.Host.Restaurant_name}},{{item.Item_id.Host.City}}</p>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+                          <div style="width: 50px;">
+                            <h5 class="fw-normal mb-0">{{item.Quantity}}</h5>
+                          </div>
+                          <div style="width: 80px;">
+                             ₹ <span id="totalPrice" class="item-price">{{item.Price}}</span>
+                          </div>
+                          <a href="delcart/{{item.Item_id.Item_id}}" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="row">
+                        <div class="col-9 subprice">Total Price:</div>
+                        <div class="col-3" style="color:red; font-size:18px;">₹
+                            {% if total_price_session %}
+                            <span style="color:red; font-size:18px;">{{total_price_session}}</span>
+                            {% else %}
+                            <span  style="color:red; font-size:18px;">{{total_price_calculated}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="orderbtn">
+                    <button class="orderbtns">Place Order</button>
+                    </div>
+                </div>
+                  </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
